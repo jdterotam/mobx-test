@@ -1,11 +1,9 @@
 import Row from "antd/lib/row";
-import Button from "antd/lib/button";
 import Col from "antd/lib/col";
-import Form from "antd/lib/form";
-import Input from "antd/lib/input";
-
 import { useCallback, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+
+import LoginForm from "../components/Login/LoginForm";
 
 import { user } from "../store/User";
 
@@ -49,40 +47,13 @@ export default function Login() {
       <Col sm={24} md={8} lg={8}>
         <h1>Login</h1>
         <p>{serverError}</p>
-        <Form requiredMark>
-          <Form.Item rules={[{ required: true }]}>
-            <Input
-              size="large"
-              placeholder="Email"
-              name="email"
-              value={loginDetails.email}
-              onChange={handleChange}
-            />
-          </Form.Item>
-          <Form.Item rules={[{ required: true }]}>
-            <Input.Password
-              size="large"
-              placeholder="Password"
-              name="password"
-              value={loginDetails.password}
-              onChange={handleChange}
-            />
-          </Form.Item>
-          <Button
-            onClick={handleLogin}
-            htmlType="submit"
-            type="primary"
-            disabled={
-              Object.values(errors).some((value) => !!value) ||
-              !Object.values(loginDetails).every((value) => !!value)
-            }
-          >
-            Log In
-          </Button>
-          <Button htmlType="submit" type="secondary" onClick={handleReset}>
-            Reset
-          </Button>
-        </Form>
+        <LoginForm
+          handleChange={handleChange}
+          handleLogin={handleLogin}
+          handleReset={handleReset}
+          loginDetails={loginDetails}
+          errors={errors}
+        />
         <p>
           <NavLink to="/forgot_password">Forgot Password?</NavLink>
         </p>

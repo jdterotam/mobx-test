@@ -1,6 +1,5 @@
 import Modal from "antd/lib/modal";
 import { useCallback, useRef, useState } from "react";
-import { action } from "mobx";
 import Form from "antd/lib/form";
 import Input from "antd/lib/input";
 import Select from "antd/lib/select";

@@ -1,11 +1,11 @@
 import { Layout, Menu, Button } from "antd";
 import { BuildOutlined, LogoutOutlined } from "@ant-design/icons";
 import { NavLink, useNavigate } from "react-router-dom";
-
-const { Header, Footer, Content } = Layout;
+import { useCallback } from "react";
 
 import { user } from "../../store/User";
-import { useCallback } from "react";
+
+const { Header, Footer, Content } = Layout;
 
 const headerStyle = {
   color: "black",
@@ -22,7 +22,7 @@ const menuStyle = {
   justifyContent: "flex-end",
 };
 const contentWrapperStyle = {
-  height: "calc(100vh - 130px)",
+  minHeight: "calc(100vh - 130px)",
 };
 const contentStyle = {
   padding: "30px",
