@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import { observable, makeObservable, action, autorun } from "mobx";
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,6 +51,10 @@ export default class User {
       // All good, register the user
       this.users.push({ ...initialProfile, ...payload, id: uuidv4() });
       returnObj = { data: { ...initialProfile, ...payload }, error: null };
+
+      notification.open({
+        message: "Registered successfully",
+      });
     }
 
     return returnObj;
@@ -79,13 +84,15 @@ export default class User {
         data: null,
         error: "Invalid Credentials",
       };
-
-      return returnObj;
     }
 
     // All clear, generate token and set the session
     //TODO: add jwt here
     this.profile = { ...selectedUserProfile };
+
+    notification.open({
+      message: "Logged in successfully",
+    });
     return {
       data: this.profile,
       error: null,
@@ -96,6 +103,9 @@ export default class User {
   logout = () => {
     try {
       this.profile = initialProfile;
+      notification.open({
+        message: "Logged out successfully",
+      });
     } catch (error) {
       console.log(error);
       throw new Error(error);
@@ -104,7 +114,17 @@ export default class User {
 
   //@action
   updateProfile = (payload) => {
-    this.profile = { ...this.profile, ...payload };
+    if (Object.keys(payload).filter((p) => p === "email").length > 0) {
+      this.users.filter((u) => u.email === payload.email).length > 0 &&
+        notification.open({
+          message: "Email already registered, please try with new one",
+        });
+    } else {
+      this.profile = { ...this.profile, ...payload };
+      notification.open({
+        message: "Profile updated successfully",
+      });
+    }
   };
 }
 export const user = new User();

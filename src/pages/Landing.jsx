@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import { user } from "../store/User";
-import { useEffect } from "react";
 
 export default function Landing() {
   const navigate = useNavigate();

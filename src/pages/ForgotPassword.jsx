@@ -6,6 +6,8 @@ import Button from "antd/lib/button";
 import { useCallback, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { user } from "../store/User";
+
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -13,7 +15,9 @@ export default function ForgotPassword() {
   const navigate = useNavigate();
 
   const handleForgotPassword = useCallback((_) => {
-    console.log("Handle Forgot Password");
+    if (user.users.filter((u) => u.email === email).length > 0) {
+      navigate("/reset_password");
+    }
   });
 
   const handleChange = (e) => {

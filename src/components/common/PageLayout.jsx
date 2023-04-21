@@ -58,6 +58,10 @@ export default function PageLayout({ children }) {
               label: <NavLink to="/items">Items</NavLink>,
               key: 1,
             },
+            {
+              label: <NavLink to={`/${user.profile.id}`}>Profile</NavLink>,
+              key: 2,
+            },
           ]}
         />
         <Button size="default" icon={<LogoutOutlined />} onClick={handleLogout}>

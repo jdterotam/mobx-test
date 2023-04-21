@@ -2,6 +2,7 @@ import { action, autorun, makeObservable, observable } from "mobx";
 import { v4 as uuidv4 } from "uuid";
 
 import { user } from "./User";
+import { notification } from "antd";
 
 const initialItem = {
   name: "",
@@ -38,7 +39,9 @@ export default class Item {
       createdAt: new Date().getTime(),
     };
     this.items = [...this.items, { ...itemObj }];
-
+    notification.open({
+      message: "Item added successfully.",
+    });
     return {
       data: itemObj,
       error: null,
@@ -52,16 +55,23 @@ export default class Item {
         i.id === payload.id ? { ...i, ...payload } : i
       ),
     ];
+    notification.open({
+      message: "Item updated successfully.",
+    });
   };
 
   // @action
   deleteItem = (id) => {
     this.items = [...this.items.filter((i) => i.id !== id)];
+    notification.open({
+      message: "Item deleted successfully.",
+    });
   };
 }
 
 export const item = new Item();
 
+// autorun
 autorun((_) => {
   item.items.length;
   localStorage.setItem("items", JSON.stringify(item.items));
