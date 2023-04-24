@@ -24,6 +24,7 @@ export default function ResetPassword() {
       navigate("/login");
       notification.open({
         message: "Password has been reset successfully.",
+        type: "success",
       });
     }
   });

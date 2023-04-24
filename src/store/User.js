@@ -54,6 +54,7 @@ export default class User {
 
       notification.open({
         message: "Registered successfully",
+        type: "success",
       });
     }
 
@@ -92,6 +93,7 @@ export default class User {
 
     notification.open({
       message: "Logged in successfully",
+      type: "success",
     });
     return {
       data: this.profile,
@@ -105,6 +107,7 @@ export default class User {
       this.profile = initialProfile;
       notification.open({
         message: "Logged out successfully",
+        type: "success",
       });
     } catch (error) {
       console.log(error);
@@ -118,6 +121,7 @@ export default class User {
       if (this.users.filter((u) => u.email === payload.email).length > 0) {
         notification.open({
           message: "Email already registered, please try with new one",
+          type: "error",
         });
 
         return {
@@ -135,6 +139,7 @@ export default class User {
       this.profile = { ...this.profile, ...payload };
       notification.open({
         message: "Profile updated successfully",
+        type: "success",
       });
       return {
         data: this.profile,

@@ -41,6 +41,7 @@ export default class Item {
     this.items = [...this.items, { ...itemObj }];
     notification.open({
       message: "Item added successfully.",
+      type: "success",
     });
     return {
       data: itemObj,
@@ -57,6 +58,7 @@ export default class Item {
     ];
     notification.open({
       message: "Item updated successfully.",
+      type: "success",
     });
   };
 
@@ -65,6 +67,7 @@ export default class Item {
     this.items = [...this.items.filter((i) => i.id !== id)];
     notification.open({
       message: "Item deleted successfully.",
+      type: "success",
     });
   };
 }
