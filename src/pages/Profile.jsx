@@ -16,17 +16,20 @@ function Profile() {
   const { updateProfile } = user;
 
   const handleChange = useCallback((name, value) => {
-    console.log;
-    setUserProfile({
-      ...userProfile,
-      [name]: value,
+    setUserProfile((prev) => {
+      return {
+        ...userProfile,
+        [name]: value,
+      };
     });
   });
 
   const handleSave = useCallback((name) => {
-    updateProfile({
+    const data = updateProfile({
       [name]: userProfile[name],
     });
+    data.error &&
+      setUserProfile({ ...JSON.parse(localStorage.getItem("profile")) });
     toggleEdit(name);
   });
 
@@ -84,120 +87,3 @@ function Profile() {
 }
 
 export default observer(Profile);
-
-{
-  /* <Descriptions.Item label="Name">
-            {toggle.name ? (
-              <div style={inputWrapperStyle}>
-                <Input
-                  placeholder="name"
-                  name="Name"
-                  value={userProfile.name}
-                  style={inputStyle}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                />
-                <Button
-                  type="link"
-                  style={marginStyle}
-                  onClick={(_) => handleSave("name")}
-                >
-                  <CheckOutlined />
-                </Button>
-                <Button
-                  type="link"
-                  onClick={(_) => toggleEdit("name")}
-                  name="name"
-                >
-                  <CloseOutlined />
-                </Button>
-              </div>
-            ) : (
-              <>
-                <span style={marginStyle}>{userProfile.name}</span>
-                <Button
-                  type="link"
-                  onClick={(_) => toggleEdit("name")}
-                  name="name"
-                >
-                  <EditOutlined /> Edit
-                </Button>
-              </>
-            )}
-          </Descriptions.Item>
-          <Descriptions.Item label="Email">
-            {toggle.email ? (
-              <div inputWrapperStyle>
-                <Input
-                  placeholder="email"
-                  name="Email"
-                  value={userProfile.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                  style={inputStyle}
-                />
-                <Button
-                  type="link"
-                  style={marginStyle}
-                  onClick={(_) => handleSave("email")}
-                >
-                  <CheckOutlined />
-                </Button>
-                <Button
-                  type="link"
-                  onClick={(_) => toggleEdit("email")}
-                  name="email"
-                >
-                  <CloseOutlined />
-                </Button>
-              </div>
-            ) : (
-              <>
-                <span style={marginStyle}>{userProfile.email}</span>
-                <Button
-                  type="link"
-                  onClick={(_) => toggleEdit("email")}
-                  name="email"
-                >
-                  <EditOutlined /> Edit
-                </Button>
-              </>
-            )}
-          </Descriptions.Item>
-          <Descriptions.Item label="Phone" name="phone">
-            {toggle.phone ? (
-              <div style={inputWrapperStyle}>
-                <Input
-                  placeholder="phone"
-                  name="Phone"
-                  value={userProfile.phone}
-                  style={inputStyle}
-                  onChange={(e) => handleChange("phone", e.target.value)}
-                />
-                <Button
-                  type="link"
-                  style={marginStyle}
-                  onClick={(_) => handleSave("phone")}
-                >
-                  <CheckOutlined />
-                </Button>
-                <Button
-                  type="link"
-                  onClick={(_) => toggleEdit("phone")}
-                  name="phone"
-                >
-                  <CloseOutlined />
-                </Button>
-              </div>
-            ) : (
-              <>
-                <span style={marginStyle}>{userProfile.phone}</span>
-                <Button
-                  type="link"
-                  onClick={(_) => toggleEdit("phone")}
-                  name="phone"
-                >
-                  <EditOutlined /> Edit
-                </Button>
-              </>
-            )}
-          </Descriptions.Item> */
-}

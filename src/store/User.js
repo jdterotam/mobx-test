@@ -115,15 +115,31 @@ export default class User {
   //@action
   updateProfile = (payload) => {
     if (Object.keys(payload).filter((p) => p === "email").length > 0) {
-      this.users.filter((u) => u.email === payload.email).length > 0 &&
+      if (this.users.filter((u) => u.email === payload.email).length > 0) {
         notification.open({
           message: "Email already registered, please try with new one",
         });
+
+        return {
+          data: null,
+          error: "Email is already registered, please try with new one",
+        };
+      } else {
+        this.profile = { ...this.profile, ...payload };
+        return {
+          data: this.profile,
+          error: null,
+        };
+      }
     } else {
       this.profile = { ...this.profile, ...payload };
       notification.open({
         message: "Profile updated successfully",
       });
+      return {
+        data: this.profile,
+        error: null,
+      };
     }
   };
 }

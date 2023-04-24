@@ -34,9 +34,9 @@ export default function ResetPassword() {
       [e.target.name]: e.target.value,
     });
     setError(
-      passwordDetails.password.length < 10
+      passwordDetails.password.length < 8
         ? "Please enter a strong password"
-        : passwordDetails.password !== passwordDetails.repeatPassword
+        : passwordDetails[e.target.name] !== passwordDetails.repeatPassword
         ? "Password does not match"
         : null
     );
@@ -46,12 +46,9 @@ export default function ResetPassword() {
     <Row className="auth-wrapper">
       <Col sm={24} md={8} lg={8}>
         <h1>Reset Password</h1>
+        <p>{error}</p>
         <Form>
-          <Form.Item
-            rules={[{ required: true }]}
-            validateStatus={error ? "error" : ""}
-            help={error}
-          >
+          <Form.Item>
             <Input
               size="large"
               placeholder="Password"
@@ -60,11 +57,7 @@ export default function ResetPassword() {
               onChange={handleChange}
             />
           </Form.Item>
-          <Form.Item
-            rules={[{ required: true }]}
-            validateStatus={error ? "error" : ""}
-            help={error}
-          >
+          <Form.Item>
             <Input
               size="large"
               placeholder="Repeat Password"
